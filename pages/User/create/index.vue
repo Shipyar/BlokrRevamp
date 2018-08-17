@@ -1,6 +1,6 @@
 <template>
 <v-layout row justify-center align-center>
-  <v-flex xs8>
+  <v-flex xs12 sm8 md6>
     <v-card class="elevation-2">
       <v-card-title primary-title>
         <h3 class="headline mb-0">Create a new Account</h3>

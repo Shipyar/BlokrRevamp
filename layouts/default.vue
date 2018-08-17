@@ -1,8 +1,8 @@
 <template>
   <v-app>
+    <Header/>
     <v-content>
-      <v-container>
-        <Header/>
+      <v-container fluid>
         <nuxt />
       </v-container>
     </v-content>

@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar fixed light flat>
+  <v-toolbar fixed light flat app>
     <router-link to="/" tag="img"></router-link>
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
