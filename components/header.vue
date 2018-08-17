@@ -4,8 +4,8 @@
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
       <v-btn v-if="connected" flat @click="signOut">SignOut</v-btn>
-      <v-btn flat to="/user/login">Login</v-btn>
-      <v-btn flat to="/user/create">Sign Up</v-btn>
+      <v-btn flat to="/login">Login</v-btn>
+      <v-btn flat to="/signup">Sign Up</v-btn>
     </v-toolbar-items>
   </v-toolbar>
 </template>
