@@ -22,7 +22,6 @@
 </template>
 
 <script>
-// Firebase Import for login systems
 export default {
   name: 'Login',
   data() {
@@ -34,15 +33,15 @@ export default {
     };
   },
   computed: {
-    // currentUser() {
-    //   return this.$store.getters.user;
+    // user(state) {
+    //   return state.user;
     // },
-    // error() {
-    //   return this.$store.getters.error;
-    // },
-    // loading() {
-    //   return this.$store.getters.loading;
-    // },
+    error(state) {
+      return state.error;
+    },
+    loading(state) {
+      return state.loading;
+    },
   },
   watch: {
     currentUser(value) {
