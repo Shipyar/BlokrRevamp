@@ -1,11 +1,11 @@
 <template>
   <v-toolbar fixed light flat app>
-    <router-link to="/" tag="img"></router-link>
+    <v-btn flat to="/">Blokr</v-btn>
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
       <v-btn v-if="connected" flat @click="signOut">SignOut</v-btn>
-      <nuxt-link to="/user/login">Login</nuxt-link>
-      <nuxt-link to="/user/create">Sign Up</nuxt-link>
+      <v-btn flat to="/user/login">Login</v-btn>
+      <v-btn flat to="/user/create">Sign Up</v-btn>
     </v-toolbar-items>
   </v-toolbar>
 </template>
