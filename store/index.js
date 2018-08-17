@@ -1,4 +1,5 @@
 import Vuex from 'vuex'
+import { db } from '~/plugins/firebase.js'
 
 const createStore = () => {
   return new Vuex.Store({
