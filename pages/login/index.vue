@@ -12,16 +12,19 @@
             <v-text-field name="password" label="Password" id="password" v-model="user.password" required type="password" prepend-icon="lock">
             </v-text-field>
           </v-form>
-          <v-btn round block type="submit" @click.prevent="login" color="primary">
+          <v-btn round block type="submit" @click.prevent="login" color="primary" :loading="loading">
             Login
           </v-btn>
         </v-card-text>
       </v-card>
     </v-flex>
+    <alert v-if="error" @dismissed="onDismissed" :text="error.message" :is-error="true"/>
   </v-layout>
 </template>
 
 <script>
+import Alert from '@/components/shared/alert'
+
 export default {
   name: 'Login',
   data() {
@@ -32,15 +35,18 @@ export default {
       },
     };
   },
+  components: {
+    Alert
+  },
   computed: {
     // user(state) {
     //   return state.user;
     // },
     error(state) {
-      return state.error;
+      return this.$store.getters.error;
     },
     loading(state) {
-      return state.loading;
+      return this.$store.getters.loading;
     },
   },
   watch: {
@@ -51,8 +57,15 @@ export default {
     },
   },
   methods: {
-    login() {
-      this.$store.dispatch('signInUser', { email: this.user.email, password: this.user.password });
+    async login() {
+      try {
+        await this.$store.dispatch('signInUser', { email: this.user.email, password: this.user.password })
+        this.$router.replace('user/1')
+      } catch(e) {
+          this.$store.commit('setLoading', false)
+          this.$store.commit('setError', e)
+      }
+      
     },
     onDismissed() {
       this.$store.dispatch('clearError');

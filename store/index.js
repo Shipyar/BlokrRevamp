@@ -1,10 +1,19 @@
 import Vuex from 'vuex'
+import Auth from '@/plugins/firebase'
 import firebase from 'firebase'
+
+function buildUserObject (authData) {
+  let { email, uid } = authData.user
+  let user = {}
+  user['email'] = email
+  user['uid'] = uid
+  return user
+}
 
 const createStore = () => {
   return new Vuex.Store({
     state: {
-      user: 'test',
+      user: null,
       loading: false,
       error: null,
       loadedBloks: [],
@@ -41,23 +50,24 @@ const createStore = () => {
       },
     },
     actions: {
-      signInUser({ commit }, payload) {
-        commit('setLoading', true);
-        commit('clearError');
-        firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
-          .then((user) => {
-            commit('setLoading', false);
-            const newUser = {
-              id: user.uid,
-              bloks: [],
-            };
-            commit('setUser', newUser);
-          }).catch((e) => {
-            commit('setLoading', false);
-            commit('setError', e);
-          });
+      async signInUser({ commit }, payload) {
+        commit('setLoading', true)
+        commit('clearError')
+        let authData = await firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
+        commit('setUser', buildUserObject(authData))
+        commit('setLoading', false)
       },
-    }
+      async signUpUser({ commit }, payload) {
+        commit('setLoading', true)
+        commit('clearError')
+        let authData = await firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
+        commit('setUser', buildUserObject(authData))
+        commit('setLoading', false)
+      },
+      autoConnect({ commit }, payload) {
+        commit('setUser', {id: payload.uid});
+      }
+    } 
   })
 }
 

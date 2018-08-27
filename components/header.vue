@@ -1,8 +1,8 @@
 <template>
-  <v-toolbar fixed light flat app>
+  <v-toolbar flat app>
     <v-btn flat to="/">Blokr</v-btn>
     <v-spacer></v-spacer>
-    <v-toolbar-items class="hidden-sm-and-down">
+    <v-toolbar-items>
       <v-btn v-if="connected" flat @click="signOut">SignOut</v-btn>
       <v-btn flat to="/login">Login</v-btn>
       <v-btn flat to="/signup">Sign Up</v-btn>
