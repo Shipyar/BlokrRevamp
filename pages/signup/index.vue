@@ -48,9 +48,9 @@ export default {
     // error() {
     //   return this.$store.getters.error;
     // },
-    // loading() {
-    //   return this.$store.getters.loading;
-    // },
+    loading() {
+      return this.$store.getters.loading;
+    },
   },
   watch: {
     currentUser(value) {
@@ -60,8 +60,9 @@ export default {
     },
   },
   methods: {
-    signUp() {
-      this.$store.dispatch('signUpUser', { email: this.user.email, password: this.user.password });
+    async signUp() {
+      await this.$store.dispatch('signUpUser', { email: this.user.email, password: this.user.password })
+      this.$router.replace('user/1')
     },
     onDismissed() {
       this.$store.dispatch('clearError');
