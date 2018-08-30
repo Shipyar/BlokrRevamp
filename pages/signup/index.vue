@@ -39,25 +39,17 @@ export default {
   components: {
   },
   computed: {
-    // comparePassword() {
-    //   return this.user.password !== this.user.confirmPassword ? 'Passwords dont match' : true;
-    // },
-    // currentUser() {
-    //   return this.$store.getters.user;
-    // },
-    // error() {
-    //   return this.$store.getters.error;
-    // },
+    comparePassword() {
+      return this.user.password !== this.user.confirmPassword ? 'Passwords dont match' : true;
+    },
+    error() {
+      return this.$store.getters.error;
+    },
     loading() {
       return this.$store.getters.loading;
     },
   },
   watch: {
-    currentUser(value) {
-      if (value !== null && value !== undefined) {
-        this.$router.push('/Blokr');
-      }
-    },
   },
   methods: {
     async signUp() {
