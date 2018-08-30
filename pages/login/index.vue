@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import Alert from '@/components/shared/alert'
+import Alert from '@/components/alert'
 
 export default {
   name: 'Login',
