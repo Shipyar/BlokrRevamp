@@ -12,7 +12,7 @@
             <v-text-field name="password" label="Password" id="password" v-model="user.password" required type="password" prepend-icon="lock">
             </v-text-field>
           </v-form>
-          <v-btn round block type="submit" @click.prevent="login" color="primary" :loading="loading">
+          <v-btn round block type="submit" @click.prevent="loginUser" color="primary" :loading="loading">
             Login
           </v-btn>
         </v-card-text>
@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import Alert from '@/components/alert'
 
 export default {
@@ -57,15 +58,12 @@ export default {
     },
   },
   methods: {
-    async login() {
-      try {
-        await this.$store.dispatch('signInUser', { email: this.user.email, password: this.user.password })
-        this.$router.replace('user/1')
-      } catch(e) {
-          this.$store.commit('setLoading', false)
-          this.$store.commit('setError', e)
-      }
-      
+    ...mapActions('user', ['login']),
+    loginUser() {
+      this.login({
+        email: this.user.email,
+        password: this.user.password
+      })
     },
     onDismissed() {
       this.$store.dispatch('clearError');
