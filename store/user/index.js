@@ -35,20 +35,29 @@ const actions = {
     try {
       // * Calls the firebase auth with its payload
       const result = await auth.signInWithEmailAndPassword(payload.email, payload.password)
-      commit(SET_PROFILE, result.user);
-      console.log(result);
+      console.log(result)
     } catch(e) {
-      console.log(e);
+      console.error(e);
     }
   },
 
-  async signUp() {
-
+  async signUp(store, payload) {
+    if (store.state.loggedIn)
+      return;
+      try {
+        await auth.createUserWithEmailAndPassword(payload.email, payload.password)
+      } catch(e) {
+        console.error(e);
+      }
   },
 
-  async logout() {
+  async logout(store) {
+    if (!store.state.loggedIn) {
+      return;
+    }
     try {
-      await firebase.auth().signOut();
+      await auth.signOut();
+      console.log('logged out');
     } catch(e) {
       console.log(e);
     }
