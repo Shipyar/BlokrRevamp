@@ -18,12 +18,12 @@
         </v-card-text>
       </v-card>
     </v-flex>
-    <alert v-if="error" @dismissed="onDismissed" :text="error.message" :is-error="true"/>
+    <alert @dismissed="onDismissed"/>
   </v-layout>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import Alert from '@/components/alert'
 
 export default {
@@ -40,21 +40,8 @@ export default {
     Alert
   },
   computed: {
-    // user(state) {
-    //   return state.user;
-    // },
-    error(state) {
-      return this.$store.getters.error;
-    },
     loading(state) {
       return this.$store.getters.loading;
-    },
-  },
-  watch: {
-    currentUser(value) {
-      if (value !== null && value !== undefined) {
-        this.$router.push('/Blokr');
-      }
     },
   },
   methods: {
@@ -65,6 +52,9 @@ export default {
         password: this.user.password
       })
       .then(() => {this.$router.replace({ path: 'user/1' })})
+      .catch((e) => {
+        console.log(e)
+      })
     },
     onDismissed() {
       this.$store.dispatch('clearError');

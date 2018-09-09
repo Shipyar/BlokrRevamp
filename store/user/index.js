@@ -32,14 +32,10 @@ const actions = {
     // * Async checks if user is already logged in
     if (store.state.loggedIn)
       return;
-    try {
-      store.commit('setLoading', true, {root: true})
-      // * Calls the firebase auth with its payload
-      await auth.signInWithEmailAndPassword(payload.email, payload.password)
-      store.commit('setLoading', false, {root: true})
-    } catch(e) {
-      console.error(e);
-    }
+    store.commit('setLoading', true, {root: true})
+    // * Calls the firebase auth with its payload
+    await auth.signInWithEmailAndPassword(payload.email, payload.password)
+    store.commit('setLoading', false, {root: true})
   },
 
   async signUp(store, payload) {
