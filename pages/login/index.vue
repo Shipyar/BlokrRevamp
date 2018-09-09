@@ -64,6 +64,7 @@ export default {
         email: this.user.email,
         password: this.user.password
       })
+      .then(() => {this.$router.replace({ path: 'user/1' })})
     },
     onDismissed() {
       this.$store.dispatch('clearError');
