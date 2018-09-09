@@ -1,4 +1,4 @@
-# blokr
+# Blokr
 
 > An interesting way to track projects
 
