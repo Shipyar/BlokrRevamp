@@ -15,7 +15,7 @@
             type="password" :rules="[comparePassword]" prepend-icon="lock">
           </v-text-field>
         </v-form>
-        <v-btn round block type="submit" @click.prevent="signUp" color="primary" :loading="loading" :disabled="loading">
+        <v-btn round block type="submit" @click="signUpUser" color="primary" :loading="loading" :disabled="loading">
           Sign Up!
         </v-btn>
       </v-card-text>
@@ -25,6 +25,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: 'Signup',
   data() {
@@ -52,9 +54,14 @@ export default {
   watch: {
   },
   methods: {
-    async signUp() {
-      await this.$store.dispatch('signUpUser', { email: this.user.email, password: this.user.password })
-      this.$router.replace('user/1')
+    ...mapActions('user', ['signUp']),
+    signUpUser() {
+      this.signUp({
+        email: this.user.email,
+        // ! The final password we send needs to be a combination thats clarified
+        password: this.user.password
+      })
+      .then(() => {this.$router.replace({ path: 'user/1' })})
     },
     onDismissed() {
       this.$store.dispatch('clearError');

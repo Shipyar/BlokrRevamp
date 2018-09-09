@@ -6,9 +6,9 @@ import user from '@/store/user';
 const createStore = () => {
   return new Vuex.Store({
     state: {
-      loading: false,
       error: null,
       loadedBloks: [],
+      loading: false
     },
     modules: {
       user
@@ -17,14 +17,9 @@ const createStore = () => {
       error(state) {
         return state.error;
       },
-      loading(state) {
-        return state.loading;
-      },
+      loading: ({loading}) => loading
     },
     mutations: {
-      setLoading(state, payload) {
-        state.loading = payload;
-      },
       setError(state, payload) {
         state.error = payload;
       },
@@ -34,9 +29,10 @@ const createStore = () => {
       createBlok(state, payload) {
         state.loadedBloks.push(payload);
       },
-    },
-    actions: {
-    } 
+      setLoading(state, payload) {
+        state.loading = payload;
+      },
+    }
   })
 }
 

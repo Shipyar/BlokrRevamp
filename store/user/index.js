@@ -16,7 +16,7 @@ const mutations = {
   [SET_PROFILE](state, profile) {
     state.loggedIn = true;
     state.profile = {
-      name: profile.displayName,
+      email: profile.email,
     };
   },
 
@@ -33,9 +33,10 @@ const actions = {
     if (store.state.loggedIn)
       return;
     try {
+      store.commit('setLoading', true, {root: true})
       // * Calls the firebase auth with its payload
-      const result = await auth.signInWithEmailAndPassword(payload.email, payload.password)
-      console.log(result)
+      await auth.signInWithEmailAndPassword(payload.email, payload.password)
+      store.commit('setLoading', false, {root: true})
     } catch(e) {
       console.error(e);
     }
